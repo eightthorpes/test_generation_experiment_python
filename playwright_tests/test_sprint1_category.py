@@ -5,9 +5,6 @@ TC-S1-008: Category name is shown as the page title
 TC-S1-009: Only category-specific products are shown
 """
 
-import time
-
-import pytest
 from playwright.sync_api import Page, expect
 from conftest import BASE_URL
 
@@ -22,7 +19,9 @@ def test_tc_s1_007_category_page_displays_products(page: Page):
 
     product_links = page.locator("[data-test^='product-']")
     expect(product_links.first).to_be_visible()
-    assert product_links.count() > 0, "Expected products to be displayed on the category page"
+    assert (
+        product_links.count() > 0
+    ), "Expected products to be displayed on the category page"
 
 
 def test_tc_s1_008_category_name_shown_as_page_title(page: Page):
@@ -62,7 +61,9 @@ def test_tc_s1_009_only_category_specific_products_are_shown(page: Page):
     expect(
         page.locator("[data-test='product-name']").filter(has_text=stale_product)
     ).to_have_count(0)
-    power_tools_names = set(page.locator("[data-test='product-name']").all_inner_texts())
+    power_tools_names = set(
+        page.locator("[data-test='product-name']").all_inner_texts()
+    )
     assert len(power_tools_names) > 0, "Power Tools category should have products"
 
     # The two categories should not share any products
@@ -77,6 +78,12 @@ def test_tc_s1_009_only_category_specific_products_are_shown(page: Page):
     page.wait_for_load_state("networkidle")
     all_names = set(page.locator("[data-test='product-name']").all_inner_texts())
 
-    assert hand_tools_names.issubset(all_names), "Hand Tools products should exist in the full catalog"
-    assert power_tools_names.issubset(all_names), "Power Tools products should exist in the full catalog"
-    assert hand_tools_names != all_names, "Category page should show fewer products than the full catalog"
+    assert hand_tools_names.issubset(
+        all_names
+    ), "Hand Tools products should exist in the full catalog"
+    assert power_tools_names.issubset(
+        all_names
+    ), "Power Tools products should exist in the full catalog"
+    assert (
+        hand_tools_names != all_names
+    ), "Category page should show fewer products than the full catalog"

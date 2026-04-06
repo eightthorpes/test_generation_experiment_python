@@ -12,6 +12,7 @@ from conftest import BASE_URL
 
 @pytest.fixture(autouse=True)
 def go_to_product_detail(page: Page):
+    """Navigate to the product detail page for product ID 1 before each test."""
     page.goto(f"{BASE_URL}/#/product/1")
     page.wait_for_load_state("networkidle")
 
@@ -58,18 +59,20 @@ def test_tc_s1_006_clicking_related_product_navigates_to_its_detail(page: Page):
     original_url = page.url
 
     # Find and click the first related product card (a.card links under Related products)
-    related_product = page.locator(
-        "h1:has-text('Related products') ~ div a.card"
-    ).first
+    related_product = page.locator("h1:has-text('Related products') ~ div a.card").first
     expect(related_product).to_be_visible()
 
     # Get where it links to before clicking
     href = related_product.get_attribute("href")
-    assert href and "product" in href, "Related product link should point to a product page"
+    assert (
+        href and "product" in href
+    ), "Related product link should point to a product page"
 
     related_product.click()
     page.wait_for_load_state("networkidle")
 
-    assert page.url != original_url, "URL should have changed after clicking related product"
+    assert (
+        page.url != original_url
+    ), "URL should have changed after clicking related product"
     assert "product" in page.url
     expect(page.locator("[data-test='product-name']")).to_be_visible()

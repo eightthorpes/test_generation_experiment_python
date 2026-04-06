@@ -27,6 +27,7 @@ VALID_MESSAGE = (
 
 @pytest.fixture(autouse=True)
 def go_to_contact(page: Page):
+    """Fixture that navigates to the contact page before each test."""
     page.goto(f"{BASE_URL}/#/contact")
     page.wait_for_load_state("networkidle")
 

@@ -12,6 +12,7 @@ from conftest import BASE_URL
 
 @pytest.fixture(autouse=True)
 def go_to_home(page: Page):
+    """Navigate to the home page before each test."""
     page.goto(BASE_URL)
     page.wait_for_load_state("networkidle")
 
