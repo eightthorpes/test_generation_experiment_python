@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "Bash(PYENV_VERSION=practice-software-testing_tests python -)",
+      "Bash(PYENV_VERSION=practice-software-testing_tests python -m pytest playwright_tests/test_sprint1_product_overview.py playwright_tests/test_sprint1_product_detail.py playwright_tests/test_sprint1_category.py playwright_tests/test_sprint1_contact_form.py -v)"
+    ]
+  }
+}
