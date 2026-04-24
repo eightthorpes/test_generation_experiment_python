@@ -4,7 +4,7 @@ A sandbox to experiment with generating test code in Python using LLMs
 ## Experiment 1
 ### Procedure
 This is was my first attempt to generate Playwright tests in Python using an LMM. 
-I used Claude and first gave it a prompt to vist the site practicesoftwaretesting.com, 
+I used Claude (Sonnet 4.6) and first gave it a prompt to vist the site practicesoftwaretesting.com, 
 read the requirement for that site and then write a test plan and save it both as an
 MD file and in a csv sheet.  The exact prompts that I used are saved in the file `prompts.md`
 
@@ -27,8 +27,14 @@ to fix any issues. It fixed the two issues and gave me this explanation:
 
 > TC-S1-009 — Angular re-renders the product list asynchronously after a hash-route change. The page-title DOM update finishes first, so even after waiting for the title to read "Power Tools", the product list still contained stale hand-tools data. Fixed by additionally waiting for a known hand-tools product name to disappear from the DOM (to_have_count(0)) before reading the power-tools list — confirming the re-render is complete.
 
-### Conclusion
-Fairly impressive but obviously expensive.  It only implemented 14 out of 171 but they look good and I don't have any major quibbles with the 
+### Conclusions
+#### The Test Plan
+
+Claude did a solid job creating, organizing and formatting the test plan in both MD and CSV formats. It helped a lot that the project has a well organized set of user stories in the requirements and the test plan limited itself to those. It did not do anything very creative or rigorous with negative testing or edge cases so the test cases are just useable for basic regression.  I'd like to see how well it would do with less well written and formatted requirements.
+
+#### Code Implementation
+
+My main take-away is that it is fairly impressive but obviously expensive.  It only implemented 14 out of 171 but they look good and I don't have any major quibbles with the 
 code quality although I did have to fix a few small issues flagged by pylint. I'm only using the $20 a month version of the LMM and I assume it 
 would take me quite a few days to get through all 171 test cases and then debug and fix them. If I was working for a company, I would imagine that
 they'd have access to more compute capabilities and I wouldn't have those limitations. 
